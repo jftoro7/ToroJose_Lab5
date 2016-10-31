@@ -1,10 +1,14 @@
-.background    { background: blue/*rgb(52, 166, 251)*/;
+.background    { background: rgb(241, 193, 214);
                  table-layout: fixed;
                  border-spacing: 0;   }
 .background td { padding: 0;          }
-.lava          { background: red; }
-.wall          { background: brown;   }
-.floater       { background: orange;  }
+.lava          { background: black; }
+.wall          { background: white;   }
+
+.actor  { position: absolute;  }
+.player { background: rgb(245, 100, 164); }
+.coin { background: rgb(255, 242, 0); }
+.boost { background: url(boost.gif); }
 
 .game {
   overflow: hidden;
