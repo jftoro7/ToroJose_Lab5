@@ -39,6 +39,8 @@ function Level(plan) {
       // Because there is a third case (space ' '), use an "else if" instead of "else"
       else if (ch == "!")
         fieldType = "lava";
+      else if (ch == "d")
+        fieldType = "door";
 
       // "Push" the fieldType, which is a string, onto the gridLine array (at the end).
       gridLine.push(fieldType);
@@ -403,6 +405,18 @@ Level.prototype.playerTouched = function(type, actor) {
     // If there aren't any coins left, player wins
     if (!this.actors.some(function(actor) {
            return actor.type == "coin";
+         })) {
+      this.status = "won";
+      this.finishDelay = 1;
+    }
+  }
+    else if (type == "door") {
+    this.actors = this.actors.filter(function(other) {
+      return other != actor;
+    });
+    // If there aren't any coins left, player wins
+    if (!this.actors.some(function(actor) {
+           return actor.type == "door";
          })) {
       this.status = "won";
       this.finishDelay = 1;
