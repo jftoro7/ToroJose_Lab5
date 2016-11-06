@@ -3,11 +3,12 @@
                  border-spacing: 0;   }
 .background td { padding: 0;          }
 .lava          { background: black; }
+.poison		   { background: purple; }
 .wall          { background: white;   }
 
 .actor  { position: absolute;  }
-.player { background: rgb(245, 100, 164); }
 .coin { background: rgb(255, 242, 0); }
+.player { background: rgb(245, 100, 164); }
 .boost { background: url(boost.gif); }
 
 .game {
@@ -15,4 +16,13 @@
   max-width: 600px;
   max-height: 450px;
   position: relative;
+}
+
+.lost .player {
+  background: rgb(160, 64, 64);
+  box-shadow: -4px -7px 8px black, 4px -7px 8px black;
+}
+.won .player {
+	background: url(boost.gif);
+  box-shadow: -4px -7px 8px white, 4px -7px 8px white;
 }
