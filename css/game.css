@@ -6,6 +6,7 @@
 .poison		   { background: purple; }
 .wall          { background: white;   }
 .door          {background: url(boost.gif);   }
+.slow         {background: brown;    }
 
 .actor  { position: absolute;  }
 .coin { background: rgb(255, 242, 0); }

@@ -4,6 +4,7 @@ var actorChars = {
   "o": Coin, // A coin will wobble up and down
   "=": Lava, "|": Lava, "v": Lava, 
   "^": Poison,  
+  "s": Slow
 };
 
 function Level(plan) {
@@ -110,6 +111,14 @@ function Lava(pos, ch) {
   }
 }
 Lava.prototype.type = "lava";
+
+function Slow(pos, ch){
+  this.pos = pos.plus(new Vector(0, -0.5));
+  this.size = new Vector(1, 1);
+  this.speed = new Vector(0, 3);
+  this.repeatPos = pos;
+}
+Slow.prototype.type = "slow";
 
 function Poison(pos, ch) {
     this.pos = pos;
@@ -328,6 +337,16 @@ Coin.prototype.act = function(step) {
   this.pos = this.basePos.plus(new Vector(0, wobblePos));
 };
 
+Slow.prototype.act = function(step, level){
+  var newPos = this.pos.plus(this.speed.times(step));
+  if(!level.obstacleAt(newPos, this.size))
+    this.pos = newPos;
+  else if(this.repeatPos)
+    this.pos = this.repeatPos;
+  else
+    this.speed = this.speed.times(-1);
+};
+
 var maxStep = 0.05;
 
 var playerXSpeed = 7;
@@ -397,6 +416,10 @@ Level.prototype.playerTouched = function(type, actor) {
   } else if (type == "poison" && this.status == null) {
     this.status = "lost";
     this.finishDelay = 1;
+  }
+   else if(type == "slow"){
+    playerXSpeed = 3;
+    setTimeout(function(){ playerXSpeed = 8; }, 2000);
   }
     else if (type == "coin") {
     this.actors = this.actors.filter(function(other) {
